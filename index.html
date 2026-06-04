@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Extintores y Servicios I.M</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--red:#CC2200;--red-dark:#991A00;--orange:#E86000;--yellow:#F5A800;--dark:#1A1A1A;--gray:#555;--light:#F9F7F4;--white:#fff;}
+body{font-family:'Segoe UI',Arial,sans-serif;color:var(--dark);background:var(--white);}
+a{text-decoration:none;color:inherit;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:64px;flex-wrap:wrap;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--red),var(--orange),var(--yellow));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:15px;}
+.logo-text{color:#fff;font-weight:700;font-size:16px;line-height:1.2;}
+.logo-text span{display:block;font-size:11px;font-weight:400;color:#aaa;}
+.nav-links{display:flex;gap:22px;flex-wrap:wrap;}
+.nav-links a{color:#ccc;font-size:13px;transition:color .2s;}
+.nav-links a:hover{color:var(--yellow);}
+.nav-cta{background:var(--red);color:#fff!important;padding:7px 16px;border-radius:6px;font-weight:600;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--red-dark) 0%,var(--red) 35%,var(--orange) 70%,var(--yellow) 100%);padding:72px 5%;display:flex;align-items:center;gap:48px;flex-wrap:wrap;}
+.hero-text{flex:1;min-width:260px;}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.2);color:#fff;font-size:12px;padding:5px 14px;border-radius:20px;margin-bottom:18px;border:1px solid rgba(255,255,255,.3);}
+.hero h1{font-size:clamp(26px,4vw,48px);color:#fff;font-weight:800;line-height:1.1;margin-bottom:14px;}
+.hero h1 span{display:block;font-size:clamp(16px,2.5vw,26px);font-weight:400;opacity:.9;}
+.hero p{color:rgba(255,255,255,.88);font-size:15px;line-height:1.7;max-width:480px;margin-bottom:26px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-primary{background:#fff;color:var(--red-dark);font-weight:700;padding:13px 24px;border-radius:8px;font-size:14px;display:flex;align-items:center;gap:8px;transition:transform .15s;}
+.btn-primary:hover{transform:translateY(-2px);}
+.btn-secondary{background:transparent;color:#fff;font-weight:600;padding:12px 22px;border-radius:8px;font-size:14px;border:2px solid rgba(255,255,255,.6);display:flex;align-items:center;gap:8px;}
+.hero-img{flex:0 0 280px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.hero-img img{width:100%;height:320px;object-fit:cover;display:block;}
+
+/* SECCIONES BASE */
+section{padding:64px 5%;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+.section-title{font-size:clamp(20px,3vw,32px);font-weight:800;margin-bottom:12px;}
+.section-sub{font-size:15px;color:var(--gray);line-height:1.7;max-width:580px;}
+.section-header{margin-bottom:44px;}
+.center{text-align:center;}
+.center .section-sub{margin:0 auto;}
+
+/* GALERÍA */
+.galeria{background:var(--dark);}
+.galeria .section-label{color:var(--yellow);}
+.galeria .section-title{color:#fff;}
+.video-box{border-radius:14px;overflow:hidden;margin-bottom:16px;aspect-ratio:16/7;}
+.video-box iframe{width:100%;height:100%;border:none;display:block;}
+.foto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.foto-grid img{width:100%;height:200px;object-fit:cover;border-radius:10px;cursor:pointer;transition:transform .2s,opacity .2s;display:block;}
+.foto-grid img:hover{transform:scale(1.03);opacity:.9;}
+.foto-wide{grid-column:span 2;}
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;}
+.lightbox.active{display:flex;}
+.lightbox img{max-width:90vw;max-height:88vh;border-radius:10px;object-fit:contain;}
+.lb-close{position:absolute;top:18px;right:24px;color:#fff;font-size:34px;cursor:pointer;line-height:1;background:none;border:none;}
+
+/* SERVICIOS */
+.servicios{background:var(--light);}
+.servicios-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;}
+.serv-card{background:#fff;border-radius:13px;padding:24px 18px;border:1px solid #eee;transition:transform .2s,box-shadow .2s;}
+.serv-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(204,34,0,.1);}
+.serv-icon{width:50px;height:50px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:13px;}
+.si-red{background:#FFF0EE;} .si-orange{background:#FFF4E6;} .si-yellow{background:#FFFCE6;} .si-green{background:#EEFBF3;} .si-blue{background:#EEF4FF;}
+.serv-card h3{font-size:15px;font-weight:700;margin-bottom:7px;}
+.serv-card p{font-size:13px;color:var(--gray);line-height:1.6;}
+.serv-tag{display:inline-block;margin-top:10px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;}
+.st-red{background:#FFF0EE;color:var(--red);} .st-orange{background:#FFF4E6;color:var(--orange);}
+
+/* PRECIOS */
+.precios-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;max-width:660px;margin:0 auto 28px;}
+.precio-card{background:#fff;border:1px solid #eee;border-radius:13px;padding:22px 14px;text-align:center;}
+.precio-card.popular{border:2px solid var(--orange);position:relative;}
+.pop-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:3px 11px;border-radius:20px;white-space:nowrap;}
+.p-label{font-size:12px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;}
+.p-val{font-size:27px;font-weight:800;color:var(--red);margin-bottom:3px;}
+.precio-card.popular .p-val{color:var(--orange);}
+.p-sub{font-size:12px;color:var(--gray);}
+.empresa-banner{background:linear-gradient(135deg,var(--red-dark),var(--orange));border-radius:14px;padding:26px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;max-width:660px;margin:0 auto;}
+.eb-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:5px;}
+.empresa-banner h3{color:#fff;font-size:19px;font-weight:800;margin-bottom:5px;}
+.empresa-banner p{color:rgba(255,255,255,.85);font-size:13px;line-height:1.6;}
+.btn-empresa{background:#fff;color:var(--red-dark);font-weight:700;font-size:13px;padding:12px 20px;border-radius:9px;white-space:nowrap;display:flex;align-items:center;gap:7px;}
+
+/* PRODUCTOS */
+.productos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;}
+.prod-card{border:1px solid #eee;border-radius:13px;overflow:hidden;transition:box-shadow .2s;}
+.prod-card:hover{box-shadow:0 6px 22px rgba(0,0,0,.09);}
+.prod-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:48px;}
+.prod-body{padding:15px;}
+.prod-body h3{font-size:14px;font-weight:700;margin-bottom:5px;}
+.prod-body p{font-size:12px;color:var(--gray);line-height:1.5;}
+.prod-btn{margin-top:12px;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--red);border:1.5px solid var(--red);padding:6px 14px;border-radius:7px;transition:background .15s,color .15s;}
+.prod-btn:hover{background:var(--red);color:#fff;}
+
+/* POR QUÉ */
+.porquenos{background:var(--dark);}
+.porquenos .section-label{color:var(--yellow);}
+.porquenos .section-title{color:#fff;}
+.ventajas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;}
+.ventaja{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:13px;padding:22px 18px;}
+.v-icon{font-size:26px;margin-bottom:11px;}
+.ventaja h3{color:#fff;font-size:14px;font-weight:700;margin-bottom:7px;}
+.ventaja p{color:#999;font-size:13px;line-height:1.6;}
+
+/* SECTORES */
+.sectores-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;}
+.sector{background:var(--light);border-radius:11px;padding:18px 12px;text-align:center;border:1px solid #eee;transition:border-color .2s;}
+.sector:hover{border-color:var(--orange);}
+.sector-icon{font-size:26px;margin-bottom:7px;}
+.sector p{font-size:12px;font-weight:600;}
+
+/* NOSOTROS */
+.nosotros-inner{display:flex;gap:52px;align-items:center;flex-wrap:wrap;}
+.nosotros-text{flex:1;min-width:250px;}
+.nosotros-text p{font-size:14px;color:var(--gray);line-height:1.8;margin-bottom:12px;}
+.stats-row{display:flex;gap:22px;margin-top:24px;flex-wrap:wrap;}
+.stat-num{font-size:26px;font-weight:800;background:linear-gradient(135deg,var(--red),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-label{font-size:11px;color:var(--gray);font-weight:600;}
+.nosotros-img{flex:0 0 260px;border-radius:14px;overflow:hidden;box-shadow:0 10px 36px rgba(0,0,0,.12);}
+.nosotros-img img{width:100%;height:300px;object-fit:cover;display:block;}
+
+/* FAQ */
+.faq{background:var(--light);}
+.faq-list{max-width:740px;margin:0 auto;display:flex;flex-direction:column;gap:10px;}
+.faq-item{background:#fff;border:1px solid #eee;border-radius:11px;overflow:hidden;}
+.faq-q{width:100%;text-align:left;background:none;border:none;padding:16px 18px;font-size:14px;font-weight:600;color:var(--dark);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:inherit;}
+.faq-q:hover{color:var(--red);}
+.faq-a{padding:0 18px;font-size:13px;color:var(--gray);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .3s,padding .3s;}
+.faq-item.open .faq-a{max-height:180px;padding:0 18px 16px;}
+.faq-arrow{font-size:17px;transition:transform .3s;color:var(--gray);}
+.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--red);}
+
+/* CONTACTO */
+.contacto{background:var(--dark);}
+.contacto .section-label{color:var(--yellow);}
+.contacto .section-title{color:#fff;}
+.contacto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:36px;}
+.contact-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:13px;padding:24px 20px;display:flex;align-items:flex-start;gap:13px;}
+.c-icon{font-size:24px;margin-top:2px;}
+.contact-card h3{color:#fff;font-size:14px;font-weight:700;margin-bottom:5px;}
+.contact-card p{color:#aaa;font-size:13px;line-height:1.6;}
+.wa-big{display:flex;justify-content:center;margin-top:36px;}
+.wa-btn{background:#25D366;color:#fff;font-size:16px;font-weight:700;padding:16px 38px;border-radius:11px;display:flex;align-items:center;gap:11px;transition:transform .15s;}
+.wa-btn:hover{background:#1ebe5a;transform:translateY(-2px);}
+.wa-icon{width:24px;height:24px;}
+
+/* FOOTER */
+footer{background:#111;padding:36px 5% 20px;}
+.footer-top{display:flex;gap:36px;flex-wrap:wrap;justify-content:space-between;margin-bottom:24px;}
+.footer-brand p{font-size:12px;color:#888;margin-top:9px;max-width:230px;line-height:1.6;}
+.footer-col h4{color:#fff;font-size:12px;font-weight:700;margin-bottom:11px;text-transform:uppercase;letter-spacing:1px;}
+.footer-col a{display:block;color:#888;font-size:12px;margin-bottom:7px;transition:color .2s;}
+.footer-col a:hover{color:var(--yellow);}
+.footer-bottom{border-top:1px solid #222;padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.footer-bottom p{color:#555;font-size:11px;}
+.footer-badge{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-size:10px;font-weight:700;padding:3px 11px;border-radius:20px;}
+
+/* WA FLOTANTE */
+.wa-float{position:fixed;bottom:26px;right:26px;z-index:9998;background:#25D366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.45);transition:transform .2s;}
+.wa-float:hover{transform:scale(1.08);}
+.wa-float svg{width:28px;height:28px;fill:#fff;}
+.wa-tooltip{position:absolute;right:66px;background:#222;color:#fff;font-size:11px;font-weight:600;padding:5px 11px;border-radius:7px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;}
+.wa-float:hover .wa-tooltip{opacity:1;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">IM</div>
+    <div class="logo-text">Extintores y Servicios I.M <span>Seguridad & Protección</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#precios">Precios</a>
+    <a href="#galeria">Galería</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contacto" class="nav-cta">Contáctanos</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-text">
+    <div class="hero-badge">🛡️ Protección profesional para hogares y empresas</div>
+    <h1>Seguridad y prevención <span>a tu alcance</span></h1>
+    <p>Extintores, fumigación, limpieza de tanques, seguridad vial y dotaciones. Todo en un solo lugar, con 10 años de experiencia y respaldo técnico certificado.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/573114293637?text=Hola,%20quiero%20información%20sobre%20sus%20servicios" class="btn-primary" target="_blank">💬 Cotizar por WhatsApp</a>
+      <a href="#servicios" class="btn-secondary">Ver servicios ↓</a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="https://i.ibb.co/8gXx2JFR/APNQk-AEUKquo-Ue-Eocc-A-Pqi-AGXOs-EKawwr-SBMMor-Bx-Hw0owlj3-Tw-Mf-PN7y-F6-O7d2-D78-BAm-TJ79-CK0-SYmeh-IDv.webp" alt="Fachada Extintores y Servicios I.M"/>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section class="galeria" id="galeria">
+  <div class="section-header center">
+    <div class="section-label">Evidencia real</div>
+    <div class="section-title">Nuestro trabajo en imágenes</div>
+  </div>
+  <div class="video-box">
+    <iframe src="https://www.youtube.com/embed/JrvsNqY14HI" allowfullscreen title="Video Extintores y Servicios I.M"></iframe>
+  </div>
+  <div class="foto-grid">
+    <img src="https://i.ibb.co/8gXx2JFR/APNQk-AEUKquo-Ue-Eocc-A-Pqi-AGXOs-EKawwr-SBMMor-Bx-Hw0owlj3-Tw-Mf-PN7y-F6-O7d2-D78-BAm-TJ79-CK0-SYmeh-IDv.webp" alt="Fachada del local" class="foto-wide" onclick="openLb(this.src)"/>
+    <img src="https://i.ibb.co/gMMyQFD2/20240416-091823.jpg" alt="Extintores recargados" onclick="openLb(this.src)"/>
+    <img src="https://i.ibb.co/2Y83kxLt/APNQk-AF9i-BNUGex6-GPqcxeo0-Hfy-SNn6-XA3c9um-Aar-AJdj-Vj-KV3d-Ev-E2i-NSW5-YWt-Soj-Ec1min-VGrg-PVLD0a-CKW.webp" alt="Seguridad vial" onclick="openLb(this.src)"/>
+    <img src="https://i.ibb.co/ksFD5xrf/APNQk-AEXPJky8-Kw-L4-Y3-Dg-O6vj-Pes-Uc-ZI0-KRo-GEw-Z-E1gbv5-UIk-Cm-V4-FO6af9w-Dp-WC4w58t-SI-Sv8-Y-3-In6-Lvac.webp" alt="Extintor instalado" onclick="openLb(this.src)"/>
+    <img src="https://i.ibb.co/1t8YxWxk/20240406-134617.jpg" alt="Dotaciones y EPP" onclick="openLb(this.src)"/>
+    <img src="https://i.ibb.co/bRGPm9qR/APNQk-AHZkzn-EETW3-KSlw1-Oi8-CAmyb-MJbd-Zbt-ZUayi-Ey-D-t-Kvhy-Kpd-T-ro3v-SFU-z1s6-Z6-BJYY2s-HUPIa-Un-QFX.webp" alt="Señalización" onclick="openLb(this.src)"/>
+    <img src="https://i.ibb.co/xSMN2qT4/20260219-151838.jpg" alt="Estantería de productos" onclick="openLb(this.src)"/>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLb()">
+  <button class="lb-close" onclick="closeLb()">✕</button>
+  <img src="" id="lbImg" alt="Foto ampliada"/>
+</div>
+
+<!-- SERVICIOS -->
+<section class="servicios" id="servicios">
+  <div class="section-header">
+    <div class="section-label">Lo que hacemos</div>
+    <div class="section-title">Nuestros servicios</div>
+    <div class="section-sub">Soluciones integrales de seguridad, higiene y prevención para personas naturales y empresas de todos los sectores.</div>
+  </div>
+  <div class="servicios-grid">
+    <div class="serv-card"><div class="serv-icon si-red">🧯</div><h3>Extintores</h3><p>Venta, recarga y mantenimiento de todo tipo de extintores: ABC, Tipo K, CO₂, Solkaflam y de agua.</p><span class="serv-tag st-red">Venta · Recarga</span></div>
+    <div class="serv-card"><div class="serv-icon si-orange">🐛</div><h3>Fumigación y control de plagas</h3><p>Eliminación de insectos, roedores y vectores. Tratamientos preventivos y correctivos.</p><span class="serv-tag st-orange">Preventivo · Correctivo</span></div>
+    <div class="serv-card"><div class="serv-icon si-yellow">💧</div><h3>Limpieza de tanques</h3><p>Desinfección y limpieza de tanques de agua potable. Certificado de potabilidad incluido.</p><span class="serv-tag st-orange">Con certificado</span></div>
+    <div class="serv-card"><div class="serv-icon si-green">🚦</div><h3>Seguridad vial</h3><p>Señalización, conos, barreras, chalecos reflectivos y equipos para zonas de trabajo y eventos.</p><span class="serv-tag st-red">Señalización</span></div>
+    <div class="serv-card"><div class="serv-icon si-blue">🦺</div><h3>Dotaciones</h3><p>EPP, uniformes, guantes, cascos, botas y todo lo requerido por normativa laboral.</p><span class="serv-tag st-orange">EPP · Uniformes</span></div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios">
+  <div class="section-header center">
+    <div class="section-label">Tarifas</div>
+    <div class="section-title">Precios de recarga — Extintor ABC</div>
+    <div class="section-sub" style="margin:0 auto">Precios para personas naturales. Empresas cuentan con tarifas especiales por volumen.</div>
+  </div>
+  <div class="precios-grid">
+    <div class="precio-card"><div class="p-label">ABC 5 lbs</div><div class="p-val">$15.000</div><div class="p-sub">por recarga</div></div>
+    <div class="precio-card popular"><span class="pop-badge">Más popular</span><div class="p-label">ABC 10 lbs</div><div class="p-val">$20.000</div><div class="p-sub">por recarga</div></div>
+    <div class="precio-card"><div class="p-label">ABC 20 lbs</div><div class="p-val">$25.000</div><div class="p-sub">por recarga</div></div>
+    <div class="precio-card"><div class="p-label">ABC 30 lbs</div><div class="p-val">$30.000</div><div class="p-sub">por recarga</div></div>
+  </div>
+  <div class="empresa-banner">
+    <div><div class="eb-label">Para empresas</div><h3>Tarifas especiales por volumen</h3><p>Si tienes varios extintores, cotiza con nosotros y obtén precios preferenciales.</p></div>
+    <a href="https://wa.me/573114293637?text=Hola,%20soy%20empresa%20y%20quiero%20cotizar%20recarga%20de%20extintores%20por%20volumen" class="btn-empresa" target="_blank">💬 Cotizar como empresa</a>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section id="productos" style="background:var(--light)">
+  <div class="section-header">
+    <div class="section-label">Catálogo</div>
+    <div class="section-title">Tipos de extintores</div>
+    <div class="section-sub">Manejamos todas las clases para cada tipo de riesgo. Consulta disponibilidad y precios.</div>
+  </div>
+  <div class="productos-grid">
+    <div class="prod-card"><div class="prod-img" style="background:linear-gradient(135deg,#FFF0EE,#FFF4E6)">🧯</div><div class="prod-body"><h3>Extintor ABC</h3><p>Polvo químico seco multipropósito. Fuegos clase A, B y C. Ideal para hogar, oficina e industria.</p><a href="https://wa.me/573114293637?text=Quiero%20información%20sobre%20el%20extintor%20ABC" class="prod-btn" target="_blank">💬 Cotizar</a></div></div>
+    <div class="prod-card"><div class="prod-img" style="background:linear-gradient(135deg,#FFF4E6,#FFFCE6)">🍳</div><div class="prod-body"><h3>Extintor Tipo K</h3><p>Especial para cocinas industriales. Aceites y grasas vegetales/animales.</p><a href="https://wa.me/573114293637?text=Quiero%20información%20sobre%20el%20extintor%20Tipo%20K" class="prod-btn" target="_blank">💬 Cotizar</a></div></div>
+    <div class="prod-card"><div class="prod-img" style="background:linear-gradient(135deg,#EEF4FF,#E6F0FF)">🔵</div><div class="prod-body"><h3>Extintor CO₂</h3><p>Para equipos eléctricos, servidores y laboratorios. No deja residuos.</p><a href="https://wa.me/573114293637?text=Quiero%20información%20sobre%20el%20extintor%20CO2" class="prod-btn" target="_blank">💬 Cotizar</a></div></div>
+    <div class="prod-card"><div class="prod-img" style="background:linear-gradient(135deg,#EEFBF3,#E6F9EE)">❄️</div><div class="prod-body"><h3>Extintor Solkaflam</h3><p>Agente limpio halogenado para equipos electrónicos sensibles. No daña activos.</p><a href="https://wa.me/573114293637?text=Quiero%20información%20sobre%20el%20extintor%20Solkaflam" class="prod-btn" target="_blank">💬 Cotizar</a></div></div>
+    <div class="prod-card"><div class="prod-img" style="background:linear-gradient(135deg,#EEF4FF,#DDEEFF)">💧</div><div class="prod-body"><h3>Extintor de Agua</h3><p>Para fuegos clase A (madera, papel, telas). Seguro y ecológico.</p><a href="https://wa.me/573114293637?text=Quiero%20información%20sobre%20el%20extintor%20de%20agua" class="prod-btn" target="_blank">💬 Cotizar</a></div></div>
+  </div>
+</section>
+
+<!-- POR QUÉ ELEGIRNOS -->
+<section class="porquenos">
+  <div class="section-header center">
+    <div class="section-label">Nuestro diferencial</div>
+    <div class="section-title">¿Por qué elegirnos?</div>
+    <div class="section-sub" style="color:#aaa;margin:0 auto">Más que proveedores, somos aliados en seguridad para tu hogar o empresa.</div>
+  </div>
+  <div class="ventajas-grid">
+    <div class="ventaja"><div class="v-icon">✅</div><h3>Servicio certificado</h3><p>Cumplimos normas NFPA, NTC y regulaciones del Ministerio de Salud.</p></div>
+    <div class="ventaja"><div class="v-icon">⚡</div><h3>Atención rápida</h3><p>Respondemos por WhatsApp en minutos. Visitas técnicas en el menor tiempo posible.</p></div>
+    <div class="ventaja"><div class="v-icon">🏢</div><h3>Todos los sectores</h3><p>Hogares, empresas, colegios, hospitales, bodegas, restaurantes, transporte y más.</p></div>
+    <div class="ventaja"><div class="v-icon">💰</div><h3>Precios competitivos</h3><p>Cotizaciones sin compromiso. Tarifas especiales por volumen para empresas.</p></div>
+    <div class="ventaja"><div class="v-icon">📋</div><h3>Documentación incluida</h3><p>Certificados, actas de servicio y registros técnicos para tus auditorías.</p></div>
+    <div class="ventaja"><div class="v-icon">🔄</div><h3>Servicio integral</h3><p>Un solo proveedor para seguridad, higiene, dotación y señalización.</p></div>
+  </div>
+</section>
+
+<!-- SECTORES -->
+<section id="sectores">
+  <div class="section-header center">
+    <div class="section-label">¿A quién atendemos?</div>
+    <div class="section-title">Clientes y sectores</div>
+    <div class="section-sub" style="margin:0 auto">Trabajamos con todo tipo de clientes en el área metropolitana de Bucaramanga.</div>
+  </div>
+  <div class="sectores-grid">
+    <div class="sector"><div class="sector-icon">🏠</div><p>Hogares</p></div>
+    <div class="sector"><div class="sector-icon">🏢</div><p>Empresas</p></div>
+    <div class="sector"><div class="sector-icon">🏭</div><p>Industrias</p></div>
+    <div class="sector"><div class="sector-icon">🏫</div><p>Colegios</p></div>
+    <div class="sector"><div class="sector-icon">🏥</div><p>Hospitales</p></div>
+    <div class="sector"><div class="sector-icon">🍽️</div><p>Restaurantes</p></div>
+    <div class="sector"><div class="sector-icon">🚚</div><p>Transporte</p></div>
+    <div class="sector"><div class="sector-icon">🏗️</div><p>Construcción</p></div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros" style="background:var(--light)">
+  <div class="nosotros-inner">
+    <div class="nosotros-text">
+      <div class="section-label">Quiénes somos</div>
+      <div class="section-title">Extintores y Servicios I.M</div>
+      <p>Somos una empresa dedicada a la prevención de riesgos, la seguridad industrial y la higiene ambiental. Con más de 10 años en el mercado, nuestro equipo técnico cuenta con la formación y los equipos necesarios para brindar servicios de calidad.</p>
+      <p>Atendemos a clientes particulares y empresas en todo el área metropolitana de Bucaramanga — Girón, Floridablanca, Piedecuesta y Lebrija — con soluciones personalizadas y documentación completa de cada servicio.</p>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">10</div><div class="stat-label">Años de experiencia</div></div>
+        <div class="stat"><div class="stat-num">5.000+</div><div class="stat-label">Clientes atendidos</div></div>
+        <div class="stat"><div class="stat-num">3.000+</div><div class="stat-label">Extintores recargados al año</div></div>
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Servicio certificado</div></div>
+      </div>
+    </div>
+    <div class="nosotros-img">
+      <img src="https://i.ibb.co/2Y83kxLt/APNQk-AF9i-BNUGex6-GPqcxeo0-Hfy-SNn6-XA3c9um-Aar-AJdj-Vj-KV3d-Ev-E2i-NSW5-YWt-Soj-Ec1min-VGrg-PVLD0a-CKW.webp" alt="Servicios Extintores I.M"/>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-header center">
+    <div class="section-label">Preguntas frecuentes</div>
+    <div class="section-title">Resolvemos tus dudas</div>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item"><button class="faq-q">¿Cada cuánto debo recargar mi extintor? <span class="faq-arrow">⌄</span></button><div class="faq-a">Los extintores deben recargarse cada año o inmediatamente después de ser usados, aunque sea parcialmente. Se recomienda revisión visual cada 30 días para verificar el indicador de presión.</div></div>
+    <div class="faq-item"><button class="faq-q">¿Qué tipo de extintor necesito para mi negocio? <span class="faq-arrow">⌄</span></button><div class="faq-a">Depende del tipo de riesgo. Para oficinas: ABC; para equipos eléctricos: CO₂; para cocinas industriales: Tipo K; para equipos electrónicos sensibles: Solkaflam. Consúltanos y te asesoramos sin costo.</div></div>
+    <div class="faq-item"><button class="faq-q">¿Cuánto demora el servicio de limpieza de tanques? <span class="faq-arrow">⌄</span></button><div class="faq-a">Entre 2 y 4 horas según la capacidad del tanque. Incluye vaciado, limpieza mecánica, desinfección con hipoclorito y entrega de certificado de potabilidad.</div></div>
+    <div class="faq-item"><button class="faq-q">¿La fumigación es segura para mi familia o empleados? <span class="faq-arrow">⌄</span></button><div class="faq-a">Sí. Usamos productos registrados ante el INVIMA. Se recomienda ausencia del lugar durante 2-4 horas tras la aplicación según el tratamiento.</div></div>
+    <div class="faq-item"><button class="faq-q">¿Atienden fuera de Girón? <span class="faq-arrow">⌄</span></button><div class="faq-a">Sí, atendemos todo el área metropolitana de Bucaramanga: Girón, Floridablanca, Piedecuesta y Lebrija. Contáctanos para coordinar la visita.</div></div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto" id="contacto">
+  <div class="section-header center">
+    <div class="section-label">Contáctanos</div>
+    <div class="section-title">Estamos para atenderte</div>
+    <div class="section-sub" style="margin:0 auto;color:#aaa">Escríbenos por WhatsApp o por cualquiera de estos canales.</div>
+  </div>
+  <div class="contacto-grid">
+    <div class="contact-card"><div class="c-icon">📍</div><div><h3>Ubicación</h3><p>Calle 22 #17-140 Local 44<br>San Jorge 4, Girón, Santander<br>Área metropolitana de Bucaramanga<br><a href="https://maps.google.com/?q=Calle+22+%2317-140+Local+44+San+Jorge+4+Girón+Santander" target="_blank" style="color:var(--yellow)">Ver en mapa ↗</a></p></div></div>
+    <div class="contact-card"><div class="c-icon">📱</div><div><h3>WhatsApp / Teléfono</h3><p><a href="https://wa.me/573114293637" target="_blank" style="color:var(--yellow)">+57 311 429 3637</a><br>Lunes a sábado · 7:00 am – 6:00 pm</p></div></div>
+    <div class="contact-card"><div class="c-icon">📧</div><div><h3>Correo electrónico</h3><p><a href="mailto:extintoresyserviciosim@gmail.com" style="color:var(--yellow)">extintoresyserviciosim@gmail.com</a><br>Respuesta en menos de 24 horas</p></div></div>
+  </div>
+  <div class="wa-big">
+    <a href="https://wa.me/573114293637?text=Hola,%20quiero%20información%20sobre%20sus%20servicios" class="wa-btn" target="_blank">
+      <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chatear por WhatsApp ahora
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo"><div class="logo-icon">IM</div><div class="logo-text" style="color:#fff">Extintores y Servicios I.M</div></div>
+      <p>Seguridad y protección para hogares y empresas en el área metropolitana de Bucaramanga.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Servicios</h4>
+      <a href="#servicios">Extintores</a><a href="#servicios">Fumigación</a><a href="#servicios">Tanques de agua</a><a href="#servicios">Seguridad vial</a><a href="#servicios">Dotaciones</a>
+    </div>
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <a href="#nosotros">Quiénes somos</a><a href="#galeria">Galería</a><a href="#precios">Precios</a><a href="#faq">FAQ</a><a href="#contacto">Contacto</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <a href="https://wa.me/573114293637" target="_blank">+57 311 429 3637</a>
+      <a href="mailto:extintoresyserviciosim@gmail.com">extintoresyserviciosim@gmail.com</a>
+      <a href="#">Girón, Santander</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Extintores y Servicios I.M — Todos los derechos reservados</p>
+    <span class="footer-badge">Hecho en Colombia 🇨🇴</span>
+  </div>
+</footer>
+
+<!-- WA FLOTANTE -->
+<a class="wa-float" href="https://wa.me/573114293637?text=Hola,%20quiero%20información%20sobre%20sus%20servicios" target="_blank">
+  <span class="wa-tooltip">¡Escríbenos!</span>
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  // FAQ
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+    });
+  });
+  // Lightbox
+  function openLb(src) {
+    document.getElementById('lbImg').src = src;
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLb() {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeLb(); });
+</script>
+</body>
+</html>
